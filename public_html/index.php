@@ -1,58 +1,19 @@
 <?
 //pass = %O2Xs17Z
 include_once ('connect.php');
+include_once ('component.php');
 ?>
-
-<?php
-
-if($link)
-{
-    $sql="SELECT * FROM `projects` ORDER BY `id` DESC";
-    $result=mysqli_query($link,$sql);
-    while($row = mysqli_fetch_array($result))
-    {
-        $arResult['projects'][] = array(
-            'id' =>   $row['id'],
-            'name' =>  $row['name'],
-        );
-
-    }
-}
-foreach ($arResult['projects'] as $key  =>$project ){
-    $sql2='SELECT * FROM `tasks` WHERE `project_id` = '.$project[id].' ORDER BY `sort` DESC';
-    $result=mysqli_query($link,$sql2);
-    while($row = mysqli_fetch_assoc($result)) {
-        $arResult['projects'][$key]['task'][] = array(
-           'id' =>   $row['id'],
-          'name' =>  $row['name'],
-          'status' =>  $row['status'],
-            'project_id' =>  $row['project_id'],
-        );
-    }
-}
- ?>
-
-
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TODO</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="/css/main.css">
 </head>
 
 <body>
-<!--<div class="projects">-->
-<!--<div onclick="slide();" class="button">-->
-<!--    <div class="button__plus"></div>-->
-<!--    <div class="todo__title">-->
-<!--        For Home-->
-<!--    </div>-->
-<!--</div>-->
-<!--</div>-->
 <div class="projects">
     <form id="addProject" onsubmit="return addProject(this);" action="action.php" class="todo__new">
         <input name="create" type="text" required placeholder="Start typing here to create a Project...">
@@ -114,7 +75,7 @@ foreach ($arResult['projects'] as $key  =>$project ){
 </div>
 
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<script src="js/main.js"></script>
+<script src="/js/main.js"></script>
 </body>
 
 </html>
