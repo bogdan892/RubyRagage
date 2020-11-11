@@ -1,0 +1,304 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+body{
+    background-color: aliceblue;
+}
+.button{
+    width: 230px;
+    height: 50px;
+    box-shadow: inset 0 3px 4px rgba(255, 255, 255, 0.25);
+    background-color: #4773b2;
+    display: flex;
+    padding: 12px;
+}
+.button__plus{
+    box-shadow: -1px 1px 20px 20px rgba(255, 255, 255, 0.25);
+    margin-top: 8px;
+    width: 25px;
+    height: 7px;
+    transform: rotate(90deg);
+    background-color: #23559c;
+}
+.button__plus:after {
+    content: "";
+    width: 7px;
+    height: 25px;
+    background-color: #23559c;
+    position: absolute;
+    left: 9px;
+    bottom: -9px;
+}
+.projects{
+    max-width: 770px;
+    min-height: 80px;
+    margin: 0 auto;
+    display: grid;
+    align-items: center;
+    justify-content: center;
+}
+form#addProject{
+    width: 774px;
+    height: 55px;
+    background-color: #cfcfcf;
+    display: flex;
+    padding: 16px;
+    align-items: center;
+    justify-content: space-between;
+}
+form input[type="text"]{
+    width: 579px;
+    height: 34px;
+    box-shadow: inset 0 4px 4px rgba(0, 0, 0, 0.25);
+    background-color: #ffffff;
+    border: none;
+    padding: 6px 12px;
+    font-family: Roboto;
+    font-size: 18px;
+    font-weight: 500;
+}form button{
+     width: 123px;
+     height: 34px;
+     background-image: linear-gradient(180deg, #90c8a8 0%, #578e6e 100%);
+     border: none;
+     color: #ffffff;
+     font-family: Roboto;
+     font-size: 18px;
+     font-weight: 500;
+     font-style: normal;
+     letter-spacing: normal;
+     line-height: normal;
+     cursor: pointer;
+ }
+.projects .button:hover{
+    /*!*border: 3px dotted #3a7999;*!*/
+    /*color: #68995f;*/
+    /*!*background: rgba(0,0,0,0);*!*/
+    cursor: pointer
+}
+
+.todo__content input[type="text"]{
+    width: 459px;
+    height: 26px;
+    box-shadow: inset 0 4px 4px rgba(0, 0, 0, 0.25);
+    background-color: #ffffff;
+    border: none;
+    padding: 5px;
+    margin: -5px;
+    font-family: Roboto;
+    font-size: 18px;
+    font-weight: 500;
+}
+.todo__content input[type="button"]{
+    width: 50px;
+    height: 26px;
+    background-image: linear-gradient(180deg, #90c8a8 0%, #578e6e 100%);
+    border: none;
+    color: #ffffff;
+    font-family: Roboto;
+    font-size: 18px;
+    font-weight: 500;
+    font-style: normal;
+    letter-spacing: normal;
+    line-height: normal;
+    cursor: pointer;
+    margin: 5px;
+}
+.container {
+    max-width: 770px;
+    min-height: 100vh;
+    margin: 0 auto;
+    display: grid;
+    align-items: center;
+    justify-content: center;
+}
+.todo{
+    padding-bottom: 25px;
+    padding-top: 55px;
+}
+.todo__list{
+    border-right: 2px solid #f6edee;
+    border-left: 2px solid #f6edee;
+}
+.todo__header {
+    width: 774px;
+    height: 60px;
+    box-shadow: inset 0 3px 4px rgba(255, 255, 255, 0.25);
+    background-color: #4773b2;
+    display: flex;
+    padding: 16px;
+}
+.todo__logo {
+    width: 28px;
+    height: 28px;
+    color: #364966;
+}
+.todo__title {
+    color: #ffffff;
+    font-family: Roboto;
+    font-size: 22px;
+    font-weight: 500;
+    font-style: normal;
+    letter-spacing: normal;
+    line-height: normal;
+    margin-left: 10px;
+}
+.todo__title input[type="text"]{
+    display: none;
+    border: none;
+    box-shadow: inset 0 4px 4px rgba(0, 0, 0, 0.25);
+    font-family: Roboto;
+    font-size: 22px;
+    font-weight: 500;
+    font-style: normal;
+    letter-spacing: normal;
+    line-height: normal;
+    /*margin-left: 10px;*/
+}
+.todo__title .text{
+    display: inline-block;
+}
+.todo__title input[type="button"]{
+    display: none;
+    width: 80px;
+    height: 27px;
+    background-image: linear-gradient(180deg, #83ace6 0%, #4773b2 100%);
+    border: none;
+    color: #ffffff;
+    font-family: Roboto;
+    font-size: 22px;
+    font-weight: 500;
+    font-style: normal;
+    letter-spacing: normal;
+    line-height: normal;
+    cursor: pointer;
+}
+.todo__add {
+width: 774px;
+height: 55px;
+background-color: #cfcfcf;
+display: flex;
+padding: 16px;
+align-items: center;
+justify-content: space-between;
+}
+.todo__plus {
+width: 25px;
+height: 7px;
+transform: rotate(90deg);
+background-color: #5a9172;
+}
+.todo__plus:after {
+content: "";
+width: 7px;
+height: 25px;
+background-color: #5a9172;
+position: absolute;
+left: 9px;
+bottom: -9px;
+}
+.todo__add input {
+width: 579px;
+height: 34px;
+box-shadow: inset 0 4px 4px rgba(0, 0, 0, 0.25);
+background-color: #ffffff;
+border: none;
+padding: 6px 12px;
+font-family: Roboto;
+font-size: 18px;
+font-weight: 500;
+}
+.content{
+display: none;
+}
+.todo__content input[type="button"]{
+display: none;
+}
+.checked{
+text-decoration: line-through;
+}
+.todo__add input::placeholder {
+color: #e0e0e0;
+}
+.todo__add button {
+width: 123px;
+height: 34px;
+background-image: linear-gradient(180deg, #90c8a8 0%, #578e6e 100%);
+border: none;
+color: #ffffff;
+font-family: Roboto;
+font-size: 18px;
+font-weight: 500;
+font-style: normal;
+letter-spacing: normal;
+line-height: normal;
+cursor: pointer;
+}
+
+.todo__item {
+width: 770px;
+height: 55px;
+background-color: #fff;
+border-bottom: 2px solid #eceeed;
+display: flex;
+align-items: center;
+padding: 0 16px 0 16px;
+}
+.todo__checkbox {
+display: flex;
+align-items: center;
+border-right: 2px solid #f6edee;
+height: 100%;
+padding-right: 16px;
+}
+.todo__content {
+height: 100%;
+width: 560px;
+color: #a9a9a9;
+font-family: Roboto;
+font-size: 16px;
+font-weight: 500;
+font-style: normal;
+letter-spacing: normal;
+line-height: normal;
+margin-left: 3px;
+border-left: 2px solid #f6edee;
+border-right: 2px solid #f6edee;
+padding-left: 16px;
+display: flex;
+align-items: center;
+}
+.todo__item:hover {
+background-color: rgb(252, 253, 177);
+}
+.todo__hidden {
+height: 100%;
+width: 137px;
+align-items: center;
+justify-content: space-between;
+padding: 0 25px 0 25px;
+display: none;
+}
+.hidden__item {
+border-right: 1px solid #a7a89a;
+padding-right: 9px;
+cursor: pointer;
+}
+.todo__header img{
+cursor: pointer;
+}
+.hidden__item:nth-child(3) {
+border: none;
+}
+.visible {
+display: flex;
+}
+.todo__arrows {
+display: flex;
+flex-direction: column;
+}
+.todo__arrows :first-child {
+margin-bottom: 2px;
+}
