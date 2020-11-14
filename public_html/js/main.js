@@ -98,12 +98,16 @@ function deleteItems(a) {
     });
 }
 function editTask(t){
-    var text=  $(t).parents('.todo__item').find('.todo__content .text');
+    var dateInput = $(t).parents('.todo__item').find('.todo__text input[type="text"]');
+    var text =  $(t).parents('.todo__item').find('.todo__text .text');
+    var date=  $(t).parents('.todo__item').find('.todo__content .text');
     var item = $(t).parents('.todo__item').find('.todo__content input[type="text"]');
     var button = $(t).parents('.todo__item').find('.todo__content input[type="button"]');
-    text.hide();
-    item.show().focus();
-    button.show();
+    dateInput.toggle();
+    text.toggle();
+    date.toggle();
+    item.toggle();
+    button.toggle();
     console.log(text);
     console.log(item);
     var aa =false;
@@ -117,22 +121,24 @@ function slide() {
 }
 
 function saveTask(t) {
-    var item = $(t).parents('.todo__item').find('.todo__content input[type="text"]');
-    var text=  $(t).parents('.todo__item').find('.todo__content .text');
+    var task = $(t).parents('.todo__item').find('.todo__text input[type="text"]');
+    var text=  $(t).parents('.todo__item').find('.todo__text .text');
     var id =  $(t).parents('.todo__item').attr('id');
     var button = $(t).parents('.todo__item').find('.todo__content input[type="button"]');
-    text.text(item.val());
-    console.log(item);
-    console.log(id);
+    var dateText = $(t).parents('.todo__item').find('.todo__content .text');
+    var dateInput = $(t).parents('.todo__item').find('.todo__content input[type="text"]');
+    text.text(task.val());
+    dateText.text(dateInput.val());
     $.ajax({
         type: 'POST',
         url: "action.php",
-        data: "editTaskId=" + id + "&editTask=" + item.val(),
+        data: "editTaskId=" + id + "&editTask=" + task.val() + "&dateTask=" + dateInput.val(),
         success: function(data){
-       //     $(content).addClass('checked');
-            item.hide();
+            task.hide();
             button.hide();
+            dateInput.hide();
             text.show();
+            dateText.show();
         }
     });
 }
@@ -163,6 +169,7 @@ function chageStatus(t) {
 
 function addTask(t) {
     var value = $(t).find("input[name='create']").val();
+    var date = $(t).find("input[name='date']").val();
     var id = $(t).find("input[name='projectId']").val();
   //  var projectId  = 0;
     console.log(id);
@@ -170,7 +177,7 @@ function addTask(t) {
     $.ajax({
         type: 'POST',
         url: "action.php",
-        data: "createTask=" + value + "&ProjectID=" + id ,
+        data: "createTask=" + value + "&ProjectID=" + id + "&ProjectDate=" + date ,
         success: function(data){
             var todo = $(data).find('.container').html();
             $('.container').html(data);
@@ -206,5 +213,9 @@ function OnLoad(){
 }
 
 $(function () {
+    $('.todo__new .date').datepicker();
+    $(".datepicker").each(function() {
+       $(this).datepicker();
+    });
     OnLoad();
 });

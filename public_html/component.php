@@ -21,6 +21,7 @@ foreach ($arResult['projects'] as $key  =>$project ){
             'name' =>  $row['name'],
             'status' =>  $row['status'],
             'project_id' =>  $row['project_id'],
+            'date' =>  $row['DATE'],
         );
     }
 }

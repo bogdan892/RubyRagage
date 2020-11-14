@@ -20,7 +20,6 @@ include_once ('component.php');
         <button>Add Project</button>
     </form>
 </div>
-
 <div class="container">
     <?
     foreach ($arResult['projects'] as $key ){
@@ -38,9 +37,10 @@ include_once ('component.php');
             </div>
             <div class="todo__add">
                 <div class="todo__plus"></div>
-                <form onsubmit="return addTask(this);" action="action.php" class="todo__new">
+                <form style="display: contents;" onsubmit="return addTask(this);" action="action.php" class="todo__new">
                     <input name="projectId" type="hidden" value="<?=$key['id']?>">
-                    <input name="create" required type="text" placeholder="Start typing here to create a task...">
+                    <input class="name" name="create" required type="text" placeholder="Start typing here to create a task...">
+                    <input  autocomplete="off" class="date" name="date" required type="text" placeholder="Typing date...">
                     <button>Add Task</button>
                 </form>
             </div>
@@ -51,11 +51,34 @@ include_once ('component.php');
                             <div class="todo__checkbox">
                                 <input onchange="return chageStatus($(this))" <?if($task['status'] == 'yes'){?>checked<?}?> name="chageStatus" type="checkbox">
                             </div>
-                            <div class="todo__content <?if($task['status'] == 'yes'){?>checked<?}?>">
-                                <div class="text"> <?=$task['name']?></div>
+
+                            <div class="todo__text">
+                                <div class="text">
+                                    <?=$task['name']?>
+                                </div>
                                 <input type="text" required class="content" value="<?=$task['name']?>">
-                                <input onclick="saveTask(this);" type="button" value="save">
                             </div>
+
+                            <form class="todo__content <?if($task['status'] == 'yes'){?>checked<?}?>">
+                                <p style="margin-right:  5px">
+                                    <img width="15" height="15" src="icons/calendar.svg" alt="" class="">
+                                </p>
+                                <div class="text">
+                                    <?if(!empty($task['date'])){
+                                        echo $task['date'];
+                                    }
+                                    else{
+                                        echo'Write Date';
+                                    }
+                                    ?>
+                                </div>
+                                <div class="date">
+                                    <input type="text" required class="content datepicker" value="<?=$task['date']?>">
+                                </div>
+
+                                <input onclick="saveTask(this);" type="button" value="save">
+
+                            </form>
 
                             <div class="todo__hidden">
                                 <div class="todo__arrows hidden__item">
@@ -73,9 +96,22 @@ include_once ('component.php');
     <?}?>
 
 </div>
-
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="/js/main.js"></script>
+<script>
+    /* Локализация datepicker */
+    $.datepicker.regional['ru'] = {
+        weekHeader: 'Не',
+        dateFormat: 'yy-mm-dd',
+        firstDay: 1,
+        isRTL: false,
+        showMonthAfterYear: false,
+        yearSuffix: ''
+    };
+    $.datepicker.setDefaults($.datepicker.regional['ru']);
+</script>
 </body>
 
 </html>

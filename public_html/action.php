@@ -52,7 +52,7 @@ if(!empty($_REQUEST['editProject'])){
     }
 }
 if(!empty($_REQUEST['editTask'])){
-    $sql ="UPDATE `tasks` SET `name` = '$_REQUEST[editTask]' WHERE `tasks`.`id` = '$_REQUEST[editTaskId]'";
+    $sql ="UPDATE `tasks` SET `name` = '$_REQUEST[editTask]', `DATE` = '$_REQUEST[dateTask]' WHERE `tasks`.`id` = '$_REQUEST[editTaskId]'";
     $result=mysqli_query($link,$sql);
     if ($result){
         updateItems();
@@ -80,7 +80,7 @@ if(!empty($_REQUEST['createTask'])){
     while ($row = $result->fetch_assoc()) {
         $auto_increment = ($row['auto_increment']);
     }
-    $sql="INSERT INTO `tasks` (`id`, `name` ,`project_id`,`sort`) VALUES (NULL, '$_REQUEST[createTask]' , '$_REQUEST[ProjectID]' , '$auto_increment');";
+    $sql="INSERT INTO `tasks` (`id`, `name` ,`project_id`,`sort`,`DATE`) VALUES (NULL, '$_REQUEST[createTask]' , '$_REQUEST[ProjectID]' , '$auto_increment', '$_REQUEST[ProjectDate]');";
     $result=mysqli_query($link,$sql);
     if ($result){
         updateItems();
@@ -137,6 +137,7 @@ function updateItems(){
                 'name' =>  $row['name'],
                 'status' =>  $row['status'],
                 'project_id' =>  $row['project_id'],
+                'date' =>  $row['DATE'],
             );
         }
 
@@ -159,9 +160,10 @@ function updateItems(){
                 </div>
                 <div class="todo__add">
                     <div class="todo__plus"></div>
-                    <form onsubmit="return addTask(this);" action="action.php" class="todo__new">
+                    <form style="display: contents;" onsubmit="return addTask(this);" action="action.php" class="todo__new">
                         <input name="projectId" type="hidden" value="<?=$key['id']?>">
-                        <input name="create" type="text" placeholder="Start typing here to create a task...">
+                        <input class="name" name="create" required type="text" placeholder="Start typing here to create a task...">
+                        <input  autocomplete="off" class="date" name="date" required type="text" placeholder="Start typing here to create a task...">
                         <button>Add Task</button>
                     </form>
                 </div>
@@ -172,11 +174,34 @@ function updateItems(){
                             <div class="todo__checkbox">
                                 <input onchange="return chageStatus($(this))" <?if($task['status'] == 'yes'){?>checked<?}?> name="chageStatus" type="checkbox">
                             </div>
-                            <div class="todo__content <?if($task['status'] == 'yes'){?>checked<?}?>">
-                                <div class="text"> <?=$task['name']?></div>
-                                <input type="text" class="content" value=" <?=$task['name']?>">
-                                <input onclick="saveTask(this);" type="button" value="save">
+
+                            <div class="todo__text">
+                                <div class="text">
+                                    <?=$task['name']?>
+                                </div>
+                                <input type="text" required class="content" value="<?=$task['name']?>">
                             </div>
+
+                            <form class="todo__content <?if($task['status'] == 'yes'){?>checked<?}?>">
+                                <p style="margin-right:  5px">
+                                    <img width="15" height="15" src="icons/calendar.svg" alt="" class="">
+                                </p>
+                                <div class="text">
+                                    <?if(!empty($task['date'])){
+                                        echo $task['date'];
+                                    }
+                                    else{
+                                        echo'Write Date';
+                                    }
+                                    ?>
+                                </div>
+                                <div class="date">
+                                    <input type="text" required class="content datepicker" value="<?=$task['date']?>">
+                                </div>
+
+                                <input onclick="saveTask(this);" type="button" value="save">
+
+                            </form>
 
                             <div class="todo__hidden">
                                 <div class="todo__arrows hidden__item">
