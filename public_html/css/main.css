@@ -48,6 +48,9 @@ form#addProject{
     align-items: center;
     justify-content: space-between;
 }
+.date {
+    width: 40%;
+}
 #addProject input[type="text"]{
     width: 579px;
     height: 34px;

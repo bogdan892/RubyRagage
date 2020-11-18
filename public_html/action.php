@@ -51,8 +51,15 @@ if(!empty($_REQUEST['editProject'])){
         updateItems();
     }
 }
+//if(!empty($_REQUEST['editTask'])){
+//    $sql ="UPDATE `tasks` SET `name` = '$_REQUEST[editTask]', `DATE` = '$_REQUEST[dateTask]' WHERE `tasks`.`id` = '$_REQUEST[editTaskId]'";
+//    $result=mysqli_query($link,$sql);
+//    if ($result){
+//        updateItems();
+//    }
+//}
 if(!empty($_REQUEST['editTask'])){
-    $sql ="UPDATE `tasks` SET `name` = '$_REQUEST[editTask]', `DATE` = '$_REQUEST[dateTask]' WHERE `tasks`.`id` = '$_REQUEST[editTaskId]'";
+    $sql ="UPDATE `tasks` SET `name` = '$_REQUEST[editTask]'  WHERE `tasks`.`id` = '$_REQUEST[editTaskId]'";
     $result=mysqli_query($link,$sql);
     if ($result){
         updateItems();
@@ -75,17 +82,30 @@ if(!empty($_REQUEST['statusNo'])){
 }
 
 if(!empty($_REQUEST['createTask'])){
+    $ProjectDate = $_REQUEST['ProjectDate'];
+    function validateDate($date, $format = 'Y-m-d')
+    {
+        $d = DateTime::createFromFormat($format, $date);
+        return $d && $d->format($format) == $date;
+    }
     $query  = "SELECT auto_increment FROM information_schema.tables WHERE table_name='tasks';";
     $result = $link->query($query);
     while ($row = $result->fetch_assoc()) {
         $auto_increment = ($row['auto_increment']);
     }
-    $sql="INSERT INTO `tasks` (`id`, `name` ,`project_id`,`sort`,`DATE`) VALUES (NULL, '$_REQUEST[createTask]' , '$_REQUEST[ProjectID]' , '$auto_increment', '$_REQUEST[ProjectDate]');";
-    $result=mysqli_query($link,$sql);
-    if ($result){
-        updateItems();
+    if(validateDate($ProjectDate)){
+        $sql="INSERT INTO `tasks` (`id`, `name` ,`project_id`,`sort`,`DATE`) VALUES (NULL, '$_REQUEST[createTask]' , '$_REQUEST[ProjectID]' , '$auto_increment', '$_REQUEST[ProjectDate]');";
+        $result=mysqli_query($link,$sql);
+        if ($result){
+            updateItems();
+        }
+    }else{
+        echo "<p class='error'></p>";
     }
 }
+
+
+
 //UPDATE `tasks` SET `status` = 'yes' WHERE `tasks`.`id` = 26;
 if(!empty($_REQUEST['createProject'])){
 $sql="INSERT INTO `projects` (`id`, `name`) VALUES (NULL, '$_REQUEST[createProject]');";

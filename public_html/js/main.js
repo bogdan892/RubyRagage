@@ -105,8 +105,8 @@ function editTask(t){
     var button = $(t).parents('.todo__item').find('.todo__content input[type="button"]');
     dateInput.toggle();
     text.toggle();
-    date.toggle();
-    item.toggle();
+    //date.toggle();
+    //item.toggle();
     button.toggle();
     console.log(text);
     console.log(item);
@@ -120,6 +120,28 @@ function slide() {
     $('#addProject').slideToggle();
 }
 
+// function saveTask(t) {
+//     var task = $(t).parents('.todo__item').find('.todo__text input[type="text"]');
+//     var text=  $(t).parents('.todo__item').find('.todo__text .text');
+//     var id =  $(t).parents('.todo__item').attr('id');
+//     var button = $(t).parents('.todo__item').find('.todo__content input[type="button"]');
+//     var dateText = $(t).parents('.todo__item').find('.todo__content .text');
+//     var dateInput = $(t).parents('.todo__item').find('.todo__content input[type="text"]');
+//     text.text(task.val());
+//     dateText.text(dateInput.val());
+//     $.ajax({
+//         type: 'POST',
+//         url: "action.php",
+//         data: "editTaskId=" + id + "&editTask=" + task.val() + "&dateTask=" + dateInput.val(),
+//         success: function(data){
+//             task.hide();
+//             button.hide();
+//             dateInput.hide();
+//             text.show();
+//             dateText.show();
+//         }
+//     });
+// }
 function saveTask(t) {
     var task = $(t).parents('.todo__item').find('.todo__text input[type="text"]');
     var text=  $(t).parents('.todo__item').find('.todo__text .text');
@@ -132,7 +154,7 @@ function saveTask(t) {
     $.ajax({
         type: 'POST',
         url: "action.php",
-        data: "editTaskId=" + id + "&editTask=" + task.val() + "&dateTask=" + dateInput.val(),
+        data: "editTaskId=" + id + "&editTask=" + task.val(),
         success: function(data){
             task.hide();
             button.hide();
@@ -143,7 +165,8 @@ function saveTask(t) {
     });
 }
 function chageStatus(t) {
-    var content=  $(t).parents('.todo__item').find('.todo__content');
+    var content=  $(t).parents('.todo__item').find('.todo__content .text');
+    var text=  $(t).parents('.todo__item').find('.todo__text .text');
     var id = $(t).parents('.todo__item').attr('id');
     if ($(t).is(':checked')) {
         $.ajax({
@@ -152,6 +175,7 @@ function chageStatus(t) {
             data: "statusYes=" + id ,
             success: function(data){
                 $(content).addClass('checked');
+                $(text).addClass('checked');
             }
         });
         }
@@ -162,6 +186,7 @@ function chageStatus(t) {
             data: "statusNo=" + id ,
             success: function(data){
                 $(content).removeClass('checked');
+                $(text).removeClass('checked');
             }
         });
     }
@@ -175,17 +200,24 @@ function addTask(t) {
     console.log(id);
     console.log(value);
     $.ajax({
-        type: 'POST',
+        type: 'post',
         url: "action.php",
         data: "createTask=" + value + "&ProjectID=" + id + "&ProjectDate=" + date ,
         success: function(data){
-            var todo = $(data).find('.container').html();
-            $('.container').html(data);
-            OnLoad();
+            var error = $(data).find('.error');
+            if($(data).is('.error')) {
+                alert('Error Format Data, Please check Date')
+            } else {
+                var todo = $(data).find('.container').html();
+                $('.container').html(data);
+                OnLoad();
+            }
         }
     });
     return false;
 }
+
+
 
 function addProject(t) {
     var value = $(t).find("input[name='create']").val();
@@ -204,18 +236,18 @@ function addProject(t) {
 }
 
 function OnLoad(){
-    $('.todo__item').mouseleave(function () {
-        $('.todo__hidden', this).toggleClass('visible');
-    });
-    $('.todo__item').mouseenter(function () {
-        $('.todo__hidden', this).toggleClass('visible');
+    $('.todo__item').hover(
+        function(){ $(this).find('.todo__hidden').addClass('visible') },
+        function(){ $(this).find('.todo__hidden').removeClass('visible') }
+    )
+    $('.todo__new .date').datepicker();
+    $('.todo__new .date').mask('0000-00-00', {'translation': {0: {pattern: /[0-9*]/}}});
+    $(".datepicker").each(function() {
+        $(this).datepicker();
+        $(this).datepicker( "option", "dateFormat",'yy-mm-dd');
     });
 }
 
 $(function () {
-    $('.todo__new .date').datepicker();
-    $(".datepicker").each(function() {
-       $(this).datepicker();
-    });
     OnLoad();
 });

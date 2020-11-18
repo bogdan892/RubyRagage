@@ -14,6 +14,10 @@ include_once ('component.php');
 </head>
 
 <body>
+
+
+<?
+?>
 <div class="projects">
     <form id="addProject" onsubmit="return addProject(this);" action="action.php" class="todo__new">
         <input name="create" type="text" required placeholder="Start typing here to create a Project...">
@@ -53,17 +57,17 @@ include_once ('component.php');
                             </div>
 
                             <div class="todo__text">
-                                <div class="text">
+                                <div class="text <?if($task['status'] == 'yes'){?>checked<?}?>">
                                     <?=$task['name']?>
                                 </div>
                                 <input type="text" required class="content" value="<?=$task['name']?>">
                             </div>
 
-                            <form class="todo__content <?if($task['status'] == 'yes'){?>checked<?}?>">
+                            <form class="todo__content">
                                 <p style="margin-right:  5px">
                                     <img width="15" height="15" src="icons/calendar.svg" alt="" class="">
                                 </p>
-                                <div class="text">
+                                <div class="text <?if($task['status'] == 'yes'){?>checked<?}?>">
                                     <?if(!empty($task['date'])){
                                         echo $task['date'];
                                     }
@@ -100,6 +104,7 @@ include_once ('component.php');
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="/js/main.js"></script>
+<script src="/js/jquery.mask.js"></script>
 <script>
     /* Локализация datepicker */
     $.datepicker.regional['ru'] = {
