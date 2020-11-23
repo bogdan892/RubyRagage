@@ -70,7 +70,7 @@ if(!empty($_REQUEST['statusYes'])){
     $sql="UPDATE `tasks` SET `status` = 'yes' WHERE `tasks`.`id` = '$_REQUEST[statusYes]'";
     $result=mysqli_query($link,$sql);
     if ($result){
-       updateItems();
+        updateItems();
     }
 }
 if(!empty($_REQUEST['statusNo'])){
@@ -100,7 +100,7 @@ if(!empty($_REQUEST['createTask'])){
             updateItems();
         }
     }else{
-        echo "<p class='error'></p>";
+        echo "<p class='error'>Error Format Data, Please check Date</p>";
     }
 }
 
@@ -108,11 +108,11 @@ if(!empty($_REQUEST['createTask'])){
 
 //UPDATE `tasks` SET `status` = 'yes' WHERE `tasks`.`id` = 26;
 if(!empty($_REQUEST['createProject'])){
-$sql="INSERT INTO `projects` (`id`, `name`) VALUES (NULL, '$_REQUEST[createProject]');";
-$result=mysqli_query($link,$sql);
-if ($result){
-    updateItems();
-}
+    $sql="INSERT INTO `projects` (`id`, `name`) VALUES (NULL, '$_REQUEST[createProject]');";
+    $result=mysqli_query($link,$sql);
+    if ($result){
+        updateItems();
+    }
 }
 
 if(!empty($_REQUEST['deleteProject'])){
